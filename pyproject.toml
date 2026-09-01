@@ -1,0 +1,34 @@
+[project]
+name = "agentic-rag"
+version = "0.1.0"
+description = "Educational agentic RAG demo with Pydantic AI"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "pydantic-ai>=0.2.0",
+    "pydantic-settings>=2.0.0",
+    "qdrant-client>=1.12.0",
+    "httpx>=0.27.0",
+    "python-dotenv>=1.0.0",
+]
+
+[project.scripts]
+app = "src.app:main"
+seed = "src.seed:main"
+
+[dependency-groups]
+dev = ["ruff>=0.8.0"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]

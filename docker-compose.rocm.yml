@@ -1,0 +1,29 @@
+# AMD GPU override for llm and infinity.
+# Usage: docker compose -f docker-compose.yml -f docker-compose.rocm.yml up -d
+services:
+  llm:
+    image: ghcr.io/ggml-org/llama.cpp:server-rocm
+    devices:
+      - /dev/kfd
+      - /dev/dri
+
+  infinity:
+    # RX 6950 XT (gfx1100): pin michaelf34/infinity:<ver>-amd-gfx1100 if latest-rocm fails
+    image: michaelf34/infinity:latest-rocm
+    devices:
+      - /dev/kfd
+      - /dev/dri
+    group_add:
+      - video
+    security_opt:
+      - seccomp:unconfined
+    cap_add:
+      - SYS_PTRACE
+    command: >
+      v2
+      --model-id BAAI/bge-m3
+      --engine torch
+      --model-id BAAI/bge-reranker-v2-m3
+      --engine torch
+      --port 7997
+      --no-bettertransformer

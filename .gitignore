@@ -1,0 +1,14 @@
+.env
+__pycache__/
+*.py[cod]
+.ruff_cache/
+.venv/
+models/
+hf-cache/
+model_cache/
+graph.png
+*.egg-info/
+.idea/
+dist/
+build/
+.grill-sessions/
